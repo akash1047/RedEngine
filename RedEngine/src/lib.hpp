@@ -3,9 +3,9 @@
 namespace re {
 
 // RedEngie generated magic number
-extern const int magic_number;
+RE_API extern const int magic_number;
 
 // A message from RedEngine
-void message();
+RE_API void message();
 
 }  // namespace re

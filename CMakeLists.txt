@@ -5,8 +5,23 @@ project(RedEngine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# should be added before the dependency packages 
-add_subdirectory(RedEngine)
 
-add_subdirectory(sandbox)
+# RedEngine
+add_library(RedEngine SHARED
+    RedEngine/src/lib.hpp
+    RedEngine/src/lib.cpp
+)
 
+add_executable(sandbox
+    sandbox/src/main.cpp
+)
+
+target_include_directories(sandbox PRIVATE RedEngine/include)
+
+target_link_libraries(sandbox PRIVATE RedEngine)
+
+if (WIN32)
+target_compile_definitions(RedEngine PRIVATE RE_API=__declspec\(dllexport\))
+target_compile_definitions(sandbox PRIVATE RE_API=__declspec\(dllimport\))
+else()
+endif()
